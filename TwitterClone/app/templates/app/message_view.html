@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<!-- This is template for viewing all existing conversations with users -->
+
+<div class="container">
+    <div class="row">
+        <h1>Conversations</h1>
+    </div>
+</div>
+
+<!-- This button will direct the user to the page where they can create a new conversation with a user -->
+
+<div class="row">
+    <div class="col-md-12 p-5">
+        <a href="/create_thread"><button class="btn btn-default p-3" type="submit">Start Conversation</button></a>
+    </div>
+</div>
+
+
+
+<!-- For loop to list all threads/conversations the user has -->
+
+
+{% for thread in threads %}
+
+{% if thread.user == request.user %}
+
+<a href="/specific_thread/{{thread.id}}" class="btn btn-primary">Conversation with {{thread.receiver}}</a>
+</br>
+</br>
+{% elif thread.user != request.user %}
+
+<a href="/specific_thread/{{thread.id}}" class="btn btn-primary">Conversation with {{thread.user}}</a>
+</br>
+</br>
+{% endif %}
+
+
+
+
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+{% if notifications %}
+{% for noti in notifications %}
+{% if noti.action == 1 %}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="alert alert-primary">
+{{noti.from_user}} liked your post
+                        <a href="/delete_noti/{{noti.id}}"><button type="button" class="btn close"
+                                        aria-label="Close">X</button></a>
+                </div>
+            </div>
+        <p>{{noti.post.body}}</p>
+        </div>
+</div>
+
+
+{% elif noti.action == 3 %}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="alert alert-primary">
+{{noti.from_user}} has followed you!
+                            <a href="/delete_noti/{{noti.id}}"><button type="button" class="btn close"
+                                        aria-label="Close">X</button></a>
+                </div>
+
+            </div>
+        <p>{{noti.post.body}}</p>
+        </div>
+</div>
+
+
+
+{% elif noti.action == 4 %}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="alert alert-primary">
+{{noti.from_user}} Commented on your post!!
+                         <a href="/delete_noti/{{noti.id}}"><button type="button" class="btn close"
+                                        aria-label="Close">X</button></a>
+                </div>
+            </div>
+        <p>{{noti.post.body}}</p>
+        </div>
+</div>
+
+{% elif noti.action == 5 %}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="alert alert-primary">
+{{noti.from_user}} messaged you!!
+                         <a href="/delete_noti/{{noti.id}}"><button type="button" class="btn close"
+                                        aria-label="Close">X</button></a>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+{% elif noti.action == 2 %}
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <div class="alert alert-primary">
+{{noti.from_user}} liked your comment!!
+                         <a href="/delete_noti/{{noti.id}}"><button type="button" class="btn close"
+                                        aria-label="Close">X</button></a>
+                </div>
+            </div>
+        <p>{{noti.comment.comment_content}}</p>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endif %}
+{% endfor %}
+
+{% else %}
+<center>
+<div class="alert alert-danger">No Notifications at this time ):</div>
+</center>
+{% endif %}
+
+{% endblock %}

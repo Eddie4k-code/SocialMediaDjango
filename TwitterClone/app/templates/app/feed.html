@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<center>
+<div class="col">
+    {% load crispy_forms_tags %}
+    <form method="post" class="form-group" style="width: 50rem">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary"
+                type="submit" style="width: 18rem" >Post
+        </button>
+    </form>
+</div>
+</center>
+
+{% for person in user.profile.follows.all %}
+    {% for post in person.user.posts.all %}
+<center>
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+      <img src="static/app/images/default-user.jpg" style="width: 10rem">
+      <a href="/profile/{{person.id}}"><h5 class="card-title">@{{post.user.username}}</h5></a>
+      <div class="card">
+    <p class="card-text" style="font-weight: bold">{{post.body}}</p>
+          </div>
+    <span class="label label-primary">{{post.created_at}}</span> </br>
+      <a href="/comments/{{post.id}}">View Comments<span class="badge">{{post.comments.all|length}}</span></a><br></a>
+  </div>
+<!-- Form for Liking a post and Removing a like from a post -->
+     <form method-="post" id="like-form">
+         {% csrf_token %}
+         <button class="likes-button" type="submit" id="like" value="{{post.id}}" data-ansid="{{post.id}}">&hearts;<strong id="{{post.id}}_like_count">{{post.likes.all|length}}</strong></button>
+     </form>
+
+
+
+
+</div>
+    </center>
+
+    {% endfor %}
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}
+

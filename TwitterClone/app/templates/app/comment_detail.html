@@ -1,0 +1,114 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+
+
+
+<center>
+
+<!-- Orginal post -->
+<div class="card" style="width: 50rem;" id="PostContainer">
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+      {% load static %}
+      <img src="{% static 'app/images/default-user.jpg' %}" style="width: 10rem">
+      <a href="/profile/{{post.user.profile.pk}}"><h5 class="card-title">@{{post.user.username}}</h5></a>
+      <div class="card">
+    <p class="card-text" style="font-weight: bold">{{post.body}}</p>
+          </div>
+    <span class="label label-primary">{{post.created_at}}</span> </br>
+      </div>
+    <!-- Form for Liking a post and Removing a like from a post -->
+     <form method-="post" id="like-form">
+         {% csrf_token %}
+         <button class="likes-button" type="submit" id="like" value="{{post.id}}" data-ansid="{{post.id}}">&hearts;<strong id="{{post.id}}_like_count">{{post.likes.all|length}}</strong></button>
+     </form>
+</div>
+</div>
+
+  {% for comment in comments %}
+<div class="container" id="commentContainer">
+
+<div class="card" id="new-card">
+  <div class="card-body" id="comment-body">
+    <div class="card-text" id="commenter-text">
+        <a href="/profile/{{comment.commenter.profile.pk}}"><h5 class="mt-0" id="commenter">{{comment.commenter}}</h5></a>
+        <div class="card">
+      <p id="comment" style="font-weight: bold">{{comment.comment_content}}</p>
+        </div>
+        <span class="label label-primary">{{comment.comment_time}}</span>
+            <form method="post" id="comment-like-form">
+         {% csrf_token %}
+         <button class="comment-button" type="submit" id="comment-like" value="{{comment.id}}" data-id="{{comment.id}}">&hearts;<strong id="{{comment.id}}_count">{{comment.likes.all|length}}</strong></button>
+     </form>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+</div>
+
+  {% endfor %}
+
+
+
+<div class="container">
+  </div>
+<div class="col">
+    {% load crispy_forms_tags %}
+    <form method="post" id="commentForm">
+        {% csrf_token %}
+        {{ form | crispy}}
+        <button class="btn btn-default"
+                type="submit">Comment
+        </button>
+    </form>
+</div>
+
+</center>
+
+
+<script>
+  let form = document.getElementById('commentForm')
+        let commentContainer = document.getElementById('commentContainer')
+
+        form.addEventListener('submit', stopReload)
+        function stopReload(e){
+          e.preventDefault()
+          let commenter = document.createElement('h5')
+          let comment = document.createElement('p')
+            let commentLikeForm = document.getElementById('comment-like-form')
+          commenter.classList.add('card-body')
+          comment.classList.add('card')
+          $.ajax({
+            type: "POST",
+            url: "{% url 'comment_detail' post.pk %}",
+            data: $("#commentForm").serialize(),
+            datatype: "json",
+            success: function(data){
+              commenter.innerText = data.commenter
+              comment.innerText = data.msg
+              commentContainer.appendChild(commenter)
+              commentContainer.appendChild(comment)
+                commentContainer.appendChild(commentLikeForm)
+              form.reset()
+            }
+          })
+        }
+
+
+
+
+
+</script>
+
+
+
+
+
+{% endblock %}

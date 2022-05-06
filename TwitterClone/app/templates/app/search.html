@@ -1,0 +1,62 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <form  method="POST" class="card card-sm">
+                    {% csrf_token %}
+                    <div class="card-body row no-gutters align-items-center">
+                     <div class="col">
+                        <input type="text" name="search_posts" placeholder="Enter username" class="form-control form-control-borderless">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit" name="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+{% for profile in profiles %}
+
+
+
+    <div class="block">
+      <div class="card">
+        <a href="/profile/{{profile.id}}">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48" style>
+                  <img style="width: 18rem" src="static/app/images/default-user.jpg"
+                       alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4">
+                  {{ profile.user.username }}
+                </p>
+                <p class="subtitle is-6">
+                  @{{ profile.user.username|lower }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+
+
+{% endfor %}
+
+{% endblock %}

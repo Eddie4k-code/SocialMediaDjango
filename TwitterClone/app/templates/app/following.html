@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<!-- View everyone a user follows. -->
+
+<div class="card">
+        <h3 class="card-title" style="font-size: large">
+            {{profile.user.username}} is following:
+        </h3>
+        <div class="card">
+
+            {% for following in profile.follows.all %}
+
+                    <a href="/profile/{{following.id}}">
+                        {{ following }}
+                    </a>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

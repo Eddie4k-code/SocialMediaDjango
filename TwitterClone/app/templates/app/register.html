@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<center>
+<div class="sidenav">
+         <div class="login-main-text">
+            <h2>SIGN UP TODAY, START SHARING YOUR MOMMENTS!</h2>
+         </div>
+      </div>
+
+
+
+
+<div class="register-card">
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+      {% load crispy_forms_tags %}
+<center>
+<form method="POST" class="account-form">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-success" id="register-btn">Register</button>
+    </form>
+    </center>
+
+  </div>
+</div>
+</div>
+    </center>
+{% endblock %}

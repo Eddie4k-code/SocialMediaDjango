@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+
+
+
+<a href="/conversations"><button class="btn btn-default">Back to all Conversations</button></a>
+
+
+<!-- This if statement makes it so that users can not access other users direct messages that could be problematic -->
+{% if verify_thread.user == request.user or verify_thread.receiver == request.user %}
+
+
+<!-- This is template for viewing messages in a existing conversation/thread -->
+
+{% for message in messages %}
+<div class="card">
+    <a href="/profile/{{message.sender_user.profile.id}}"><h5 class="card-header">{{message.sender_user}}</h5></a>
+  <div class="card-body">
+    <p class="card-text">{{message.body}}</p>
+  </div>
+</div>
+
+</br>
+
+
+
+
+
+{% endfor %}
+<!-- This is the form for actually creating and sending a new message in the specific conversation/thread -->
+
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {{form|crispy}}
+    <button class="btn btn-default">Send</button>
+
+</form>
+<center>
+{% else %}
+<h1>Thread not found for user {{request.user}}</h1>
+    </center>
+{% endif %}
+{% endblock %}
