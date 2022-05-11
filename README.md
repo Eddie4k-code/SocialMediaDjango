@@ -10,7 +10,7 @@
 <li>Search for other users</li>
 
 
-<p>I had a lot of fun making this as it was a great learning expereince especially working with the database models!</p>
+<p>I had a lot of fun making this as it was a great learning experience especially working with the database models!</p>
 
 
 ![image](https://user-images.githubusercontent.com/98666468/167205273-f11804a9-f859-4028-ae2e-91a80a2fad53.png)
