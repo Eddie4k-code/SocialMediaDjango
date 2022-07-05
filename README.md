@@ -1,5 +1,7 @@
 <h1>Social Media Django </h1>
 
+<h1> Check the site live here https://www.eddiebird.com
+
 <h1>Users can do the following!</h1>
 <li>Register and Login</li>
 <li>Follow and unfollow other users</li>
